@@ -20,6 +20,10 @@
     txtPedeMetragem:    	.asciz	"Digite a metragem total do imovel: "        #4 (int)
     txtPedeAluguel:    		.asciz	"Digite o valor do aluguel do imovel: "        #4 (int) ?
 
+    txtConsultaReg:         .asciz  "\n*** Consulta de Registros por metragem ***\n"
+    txtConsultaMin:    		.asciz	"Digite o valor minimo do intervalo: "
+    txtConsultaMax:    		.asciz	"Digite o valor maximo do intervalo: "
+
     txtMostraReg:    		.asciz	"\n*** Registro Lido ***\n"
     txtMostraNome:    		.asciz	"\nNome: %s"
     txtMostraPhone: 		.asciz	"\nCelular: %s"
@@ -35,16 +39,19 @@
     txtMostraMetragem:    	.asciz	"\nMetragem Total: %d"
     txtMostraAluguel:    	.asciz  "\nAluguel: %d\n"
 
-
     tipoNum:     		    .asciz	"%d"
     tipoChar:    		    .asciz	"%c"
     tipoStr:    		    .asciz	" %s"
     pulaLinha:     		    .asciz	"\n"
+
     tamReg:      		    .int	272    #268 + 4 bytes de enderço do próximo
     reg:        		    .space	4
-    reg_quartos:    		.int    0
     lista:        		    .space	4
     NULL:        		    .int	0
+
+    reg_quartos:    		.int    0
+    metragem_min:           .int    0
+    metragem_max:           .int    0
 
 .section .text
 .globl _start
@@ -58,10 +65,8 @@ _start:
     call	leReg
     call	leReg
     call    leReg
-    movl    lista, %edi
-    call    printReg
-    call    printReg
-    call    printReg
+    call    print_lista
+    call    consulta
 fim:
     pushl    $0
     call    exit

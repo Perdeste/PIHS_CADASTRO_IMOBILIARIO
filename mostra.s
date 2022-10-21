@@ -86,3 +86,53 @@ print_int:
     popl    %edi
     addl    $4, %edi
     RET
+
+# Função para printar todos os registros da lista
+print_lista:
+    movl    lista, %edi
+_loop_print_lista:
+    cmpl    $NULL, %edi
+    je      _end_print_lista
+    call    printReg
+    jmp     _loop_print_lista
+_end_print_lista:
+    RET
+
+# Função para printar os registros com metragem dentro de um intervalo
+consulta:
+    pushl   $txtConsultaReg
+    call    printf
+
+    pushl   $txtConsultaMin         # Consulta o valor minimo do intervalo
+    call    printf
+    pushl   $metragem_min
+    pushl   $tipoNum
+    call    scanf
+
+    pushl   $txtConsultaMax         # Consulta o valor maximo do intervalo
+    call    printf
+    pushl   $metragem_max
+    pushl   $tipoNum
+    call    scanf
+
+    addl    $28, %esp
+    movl    lista, %edi
+_loop_consulta:
+    cmpl    $NULL, %edi
+    je      _end_consulta
+    addl    $260, %edi              # Move até o campo de metragem e coloca o valor no %eax
+    movl    (%edi), %eax
+    cmpl    metragem_min, %eax
+    jl      _next_consulta
+    cmpl    metragem_max, %eax
+    jg      _next_consulta
+_printa_consulta:                   # Registro dentro do intervalo, volta o ponteiro para o inicio e printa o registro
+    subl    $260, %edi
+    call    printReg
+    jmp    _loop_consulta
+_next_consulta:                     # Registro fora do intervalo, move para o próximo registro
+    addl    $8, %edi
+    movl    (%edi), %edi
+    jmp    _loop_consulta
+_end_consulta:
+    RET

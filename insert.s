@@ -3,7 +3,7 @@ insertReg:
     movl    $NULL, %esi         #anterior
     movl    reg, %ebx
     cmpl    $NULL, lista
-    je    _first_reg
+    je      _first_reg
 _volta_insert:
     addl    $236, %edi          
     movl    (%edi), %eax        #Pegar valor de quarto simples e colocar em eax
@@ -21,6 +21,13 @@ _volta_insert:
 _end_search:                    #Encontrou uma posição edi diferente de NULL
     cmpl    $NULL, %esi
     je      _insert_start
+_insert_middle:
+    addl    $268, %ebx
+    addl    $268, %esi
+    movl    (%esi), %eax
+    movl    %eax, (%ebx)
+    movl    reg, %eax
+    movl    %eax, (%esi)
     RET
 _insert_start:                  #Inserção no Inicio
     addl    $268, %ebx

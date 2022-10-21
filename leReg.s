@@ -6,19 +6,18 @@ leReg:
     movl    %eax, reg
 
 #Leitura campo Nome
-    pushl    $txtPedeNome
+    pushl   $txtPedeNome
     call    printf       
     addl    $12, %esp         
     
-    pushl    stdin       
-    pushl    $64         
+    pushl   stdin       
+    pushl   $64         
     movl    reg, %edi    
-    pushl    %edi        
+    pushl   %edi        
     call    fgets        
     
     popl    %edi
     addl    $8, %esp
-
     addl    $64, %edi
 
 #Leitura campo CPF
@@ -68,8 +67,7 @@ leReg:
     call    read_int 
     movl    (%edi), %eax
     addl    %eax, reg_quartos               
-    addl    $4, %edi            
-    pushl   %edi                
+    addl    $4, %edi                        
 
 #Leitura campo se tem banheiro social
     movl    $txtPedeBanheiroSocial, %ebx
@@ -106,6 +104,7 @@ leReg:
             
     RET        
 
+#Função para ler um campo do tipo int
 read_int:
     pushl   %edi 
     pushl   %ebx
@@ -119,6 +118,7 @@ read_int:
 
     RET
 
+#Função para ler um campo do tipo string
 read_string:
     pushl   %edi
     pushl   %ebx
