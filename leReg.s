@@ -113,7 +113,13 @@ read_int:
     
     pushl   $tipoNum             
     call    scanf                
-    addl    $4, %esp            
+    addl    $4, %esp    
+
+    pushl	$lixo
+    pushl	$tipoChar
+	call	scanf
+    addl    $8, %esp      
+
     popl    %edi              
 
     RET

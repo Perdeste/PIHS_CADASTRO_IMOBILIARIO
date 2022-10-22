@@ -3,7 +3,9 @@
 .include "leReg.s"
 
 .section .data
-    txtAbertura:            .asciz	"\n*** Cadastros de Registros ***\n"
+    txtAbertura:            .asciz	"\n*** Cadastros Imobiliario em Assembly ***\n"
+
+    txtMenu:                .asciz  "\n*** Menu ***\n(1) Cadastrar imóvel\n(2) Relatório \n(3) Consulta por metragem \n(4) Remover imóvel \n(5) Salvar Dados \n(6) Carregar Dados \n(0) Sair \n\nDigite a opcao desejada: "
 
     txtPedeReg:             .asciz  "\n*** Preenchimento de Registros ***\n"  
     txtPedeNome:    		.asciz	"Digite o nome do proprietario: "    #64
@@ -53,32 +55,64 @@
     metragem_min:           .int    0
     metragem_max:           .int    0
 
+    opcao:                  .int    0
+    lixo:                   .int    0
+
 .section .text
 .globl _start
 _start:
     pushl   $txtAbertura
     call	printf
     addl	$4, %esp
-
     movl	$NULL, lista
-
-    call	leReg
-    call	leReg
-    call    leReg
-    call    print_lista
-    call    consulta
-fim:
+_menu:
+    pushl   $txtMenu
+    call    printf
+# Faz a leitura da opcao do menu
+    pushl   $opcao
+    pushl   $tipoNum
+    call    scanf
+	pushl	$lixo
+	pushl	$tipoChar
+	call	scanf
+    addl    $12, %esp
+# Tratamento do menu, pra cada opcao um valor é atribuido exclusivamente para uma funcionalidade do programa
+    cmpl    $0, opcao
+    je      _fim
+    cmpl    $1, opcao
+    je      _cadastrar_imovel
+    cmpl    $2, opcao
+    je      _relatorio_imovel
+    cmpl    $3, opcao
+    je      _consulta_imovel
+    cmpl    $4, opcao
+    je      _remover_imovel
+    cmpl    $5, opcao
+    je      _salvar_dados
+    cmpl    $6, opcao
+    je      _carregar_dados
+    jmp     _menu
+_fim:
     pushl    $0
     call    exit
-
-
-
-#TODO: somar o campo de quartos
-#Dois ponteiros: anterior e atual
-#Inserção do primeiro ou ultimo - OK
-#Começo: reg aponta pra lista e depois lista recebe reg
-#Meio: quando posterior > reg, então reg recebe posterior e depois anterior recebe reg
-#Final: o anterior recebe reg e reg recebe NULL (mesmo valor que o posterior)
+_cadastrar_imovel:
+    call    leReg
+    jmp _menu
+_relatorio_imovel:
+    call    print_lista
+    jmp _menu
+_consulta_imovel:
+    call    consulta
+    jmp _menu
+_remover_imovel:
+    # TODO: Colocar a remoção de um imóvel
+    jmp _menu
+_salvar_dados:
+    # TODO: Colocar o salvamento dos dados
+    jmp _menu
+_carregar_dados:
+    # TODO: Colocar o carregamento dos dados
+    jmp _menu
 
 
 
