@@ -1,6 +1,7 @@
 .include "insert.s"
 .include "mostra.s"
 .include "leReg.s"
+.include "remove.s"
 
 .section .data
     txtAbertura:            .asciz	"\n*** Cadastros Imobiliario em Assembly ***\n"
@@ -41,6 +42,12 @@
     txtMostraMetragem:    	.asciz	"\nMetragem Total: %d"
     txtMostraAluguel:    	.asciz  "\nAluguel: %d\n"
 
+    txtRemoveReg:           .asciz  "\n*** Remoção de Registro ***\n"
+    txtRemoveEndereco:      .asciz  "\n*** Digite o Endereco para Remocao : "
+    txtRemovidoReg:         .asciz  "\n*** Registro Removido com Sucesso ***\n"
+    txtRemoveFalha:         .asciz  "\n*** Endereco Invalido... ***\n"
+    txtRemoveVazio:         .asciz  "\n*** Lista Vazia... ***\n"
+
     tipoNum:     		    .asciz	"%d"
     tipoChar:    		    .asciz	"%c"
     tipoStr:    		    .asciz	" %s"
@@ -54,6 +61,8 @@
     reg_quartos:    		.int    0
     metragem_min:           .int    0
     metragem_max:           .int    0
+
+    endereco_remover:       .space  128
 
     opcao:                  .int    0
     lixo:                   .int    0
@@ -105,7 +114,7 @@ _consulta_imovel:
     call    consulta
     jmp _menu
 _remover_imovel:
-    # TODO: Colocar a remoção de um imóvel
+    call    removeReg
     jmp _menu
 _salvar_dados:
     # TODO: Colocar o salvamento dos dados
