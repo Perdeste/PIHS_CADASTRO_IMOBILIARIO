@@ -3,68 +3,68 @@ printReg:
     call    printf
     addl    $4, %esp
 
-#Mostra campo ID
+    # Mostra campo ID
     movl   $txtMostraID, %ebx
     call    print_int
 
-#Mostra campo Nome
+    # Mostra campo Nome
     movl    $txtMostraNome, %ebx
     call    print_string
     addl    $64, %edi
 
-#Mostra campo CPF
+    # Mostra campo CPF
     movl    $txtMostraCPF, %ebx
     call    print_string
     addl    $16, %edi
 
-#Mostra campo Telefone
+    # Mostra campo Telefone
     movl    $txtMostraPhone, %ebx
     call    print_string
     addl    $16, %edi
 
-#Mostra campo Tipo
+    # Mostra campo Tipo
     movl    $txtMostraTipo, %ebx
     call    print_string
     addl    $12, %edi
 
-#Mostra campo Endereço
+    # Mostra campo Endereço
     movl    $txtMostraEndereco, %ebx
     call    print_string
     addl    $128, %edi
     
-#Mostra campo Número Quarto Simples
+    # Mostra campo Número Quarto Simples
     movl    $txtMostraQuartoSimples, %ebx
     call    print_int
 
-#Mostra campo Número Quarto Suíte
+    # Mostra campo Número Quarto Suíte
     movl    $txtMostraQuartoSuite, %ebx
     call    print_int
 
-#Mostra campo Banheiro Social
+    # Mostra campo Banheiro Social
     movl    $txtMostraBanheiroSocial, %ebx
     call    print_string
     addl    $4, %edi
 
-#Mostra campo Cozinha
+    # Mostra campo Cozinha
     movl    $txtMostraCozinha, %ebx
     call    print_string
     addl    $4, %edi
 
-#Mostra campo Sala
+    # Mostra campo Sala
     movl    $txtMostraSala, %ebx
     call    print_string
     addl    $4, %edi
 
-#Mostra campo Garagem
+    # Mostra campo Garagem
     movl    $txtMostraGaragem, %ebx
     call    print_string
     addl    $4, %edi
 
-#Mostra campo Metragem
+    # Mostra campo Metragem
     movl    $txtMostraMetragem, %ebx
     call    print_int
 
-#Mostra campo Aluguel
+    # Mostra campo Aluguel
     pushl    %edi
     flds    (%edi)
     subl    $8, %esp

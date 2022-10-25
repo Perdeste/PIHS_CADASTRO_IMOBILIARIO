@@ -9,19 +9,19 @@
     txtMenu:                .asciz  "\n*** Menu ***\n(1) Cadastrar imóvel\n(2) Relatório \n(3) Consulta por metragem \n(4) Remover imóvel \n(5) Salvar Dados \n(6) Carregar Dados \n(0) Sair \n\nDigite a opcao desejada: "
 
     txtPedeReg:             .asciz  "\n*** Preenchimento de Registros ***\n"  
-    txtPedeNome:    		.asciz	"Digite o nome do proprietario: "    #64
-    txtPedeCPF:             .asciz	"Digite o CPF: "             #16        
-    txtPedePhone:    		.asciz	"Digite o celular do proprietario: "    #16
-    txtPedeTipo:    		.asciz	"Digite o tipo do imovel(casa ou apartamento): "    #12
-    txtPedeEndereco:    	.asciz	"Digite o endereco do imovel: "            #128
-    txtPedeQuartoSimples:   .asciz	"Digite o numero de quartos simples: "    #4 (int)
-    txtPedeQuartoSuite:    	.asciz	"Digite o numero de quartos suite: "        #4 (int)
-    txtPedeBanheiroSocial:  .asciz	"Digite se o imovel possui banheiro social(sim/nao): " #4
-    txtPedeCozinha:    		.asciz	"Digite se o imovel possui cozinha(sim/nao): "    #4
-    txtPedeSala:    		.asciz	"Digite se o imovel possui sala(sim/nao): "        #4
-    txtPedeGaragem:    		.asciz	"Digite se o imovel possui garagem(sim/nao): "    #4
-    txtPedeMetragem:    	.asciz	"Digite a metragem total do imovel: "        #4 (int)
-    txtPedeAluguel:    		.asciz	"Digite o valor do aluguel do imovel: "        #4 (float) 
+    txtPedeNome:    		.asciz	"Digite o nome do proprietario: "                       # 64
+    txtPedeCPF:             .asciz	"Digite o CPF: "                                        # 16        
+    txtPedePhone:    		.asciz	"Digite o celular do proprietario: "                    # 16
+    txtPedeTipo:    		.asciz	"Digite o tipo do imovel(casa ou apartamento): "        # 12
+    txtPedeEndereco:    	.asciz	"Digite o endereco do imovel: "                         # 128
+    txtPedeQuartoSimples:   .asciz	"Digite o numero de quartos simples: "                  # 4 (int)
+    txtPedeQuartoSuite:    	.asciz	"Digite o numero de quartos suite: "                    # 4 (int)
+    txtPedeBanheiroSocial:  .asciz	"Digite se o imovel possui banheiro social(sim/nao): "  # 4
+    txtPedeCozinha:    		.asciz	"Digite se o imovel possui cozinha(sim/nao): "          # 4
+    txtPedeSala:    		.asciz	"Digite se o imovel possui sala(sim/nao): "             # 4
+    txtPedeGaragem:    		.asciz	"Digite se o imovel possui garagem(sim/nao): "          # 4
+    txtPedeMetragem:    	.asciz	"Digite a metragem total do imovel: "                   # 4 (int)
+    txtPedeAluguel:    		.asciz	"Digite o valor do aluguel do imovel: "                 # 4 (float) 
 
     txtConsultaReg:         .asciz  "\n*** Consulta de Registros por metragem ***\n"
     txtConsultaMin:    		.asciz	"Digite o valor minimo do intervalo: "
@@ -44,9 +44,9 @@
     txtMostraAluguel:    	.asciz  "\nAluguel: %.2lf\n"
 
     txtRemoveReg:           .asciz  "\n*** Remoção de Registro ***\n"
-    txtRemoveEndereco:      .asciz  "\n*** Digite o Endereco para Remocao : "
+    txtRemoveID:            .asciz  "\nDigite o ID para Remocao : "
     txtRemovidoReg:         .asciz  "\n*** Registro Removido com Sucesso ***\n"
-    txtRemoveFalha:         .asciz  "\n*** Endereco Invalido... ***\n"
+    txtRemoveFalha:         .asciz  "\n*** ID Invalido... ***\n"
     txtRemoveVazio:         .asciz  "\n*** Lista Vazia... ***\n"
 
     tipoNum:     		    .asciz	"%d"
@@ -55,7 +55,7 @@
     tipoFloat:			    .asciz  "%f"
     pulaLinha:     		    .asciz	"\n"
 
-    tamReg:      		    .int	276    #268 + 4 bytes de enderço do próximo
+    tamReg:      		    .int	276    # 268 + 4 bytes de enderço do próximo
     reg:        		    .space	4
     proximoID:              .int    0
     lista:        		    .space	4
@@ -80,7 +80,7 @@ _start:
 _menu:
     pushl   $txtMenu
     call    printf
-# Faz a leitura da opcao do menu
+    # Faz a leitura da opcao do menu
     pushl   $opcao
     pushl   $tipoNum
     call    scanf
@@ -88,7 +88,7 @@ _menu:
 	pushl	$tipoChar
 	call	scanf
     addl    $12, %esp
-# Tratamento do menu, pra cada opcao um valor é atribuido exclusivamente para uma funcionalidade do programa
+    # Tratamento do menu, pra cada opcao um valor é atribuido exclusivamente para uma funcionalidade do programa
     cmpl    $0, opcao
     je      _fim
     cmpl    $1, opcao
