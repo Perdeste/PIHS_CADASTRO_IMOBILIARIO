@@ -3,10 +3,11 @@ removeReg:
     call    printf                  # chama para printar ele na tela
     addl    $4, %esp                # limpa 1 push feito
 
-    # Pede Endereço Para remoção
+    # Pede ID Para remoção
     pushl   $txtRemoveID            # Texto que pede para o usuario inserir o id para remoçao
     call    printf                  # chama o print
 
+    # Salva o ID em id_remover
     pushl   $id_remover             # da push na variavel do tipo space 128 para receber endereço
     pushl   $tipoNum                # da push no tipo string para inserir no endereco_remover
     call    scanf                   # faz o scanf
@@ -15,16 +16,14 @@ removeReg:
     # Inicializa Lista
     movl    lista, %edi             # manda o endereço do primeiro registro
     movl    $NULL, %esi             # move o NULL para o registrador esi
-    movl    reg, %ebx               # 
     cmpl    $NULL, lista            # caso a lista esteja vazia
     je      _removeVazio            # pula diretamente para a lista vazia
 
 _loop_remove:
-    cmpl    $NULL, %ebx             #
+    cmpl    $NULL, %edi             #
     je      _end_remove             #
-    addl    $0, %ebx                #
-    movl    (%ebx), %eax            #
-    cmpl    endereco_remover, %eax  # compara para ver se é o endereço que se deseja remover
+    movl    (%edi), %eax            #
+    cmpl    id_remover, %eax        # compara para ver se é o ID que se deseja remover
     jne     _next_remove            # caso não seja ele passa pro próximo registro
 
 _remove_reg:
