@@ -3,6 +3,10 @@ printReg:
     call    printf
     addl    $4, %esp
 
+#Mostra campo ID
+    movl   $txtMostraID, %ebx
+    call    print_int
+
 #Mostra campo Nome
     movl    $txtMostraNome, %ebx
     call    print_string
@@ -61,10 +65,18 @@ printReg:
     call    print_int
 
 #Mostra campo Aluguel
-    movl    $txtMostraAluguel, %ebx
-    call    print_int
+    pushl    %edi
+    flds    (%edi)
+    subl    $8, %esp
+    fstl    (%esp)
+    pushl    $txtMostraAluguel
+    call    printf
+    addl    $12, %esp
+    popl    %edi
+    addl    $4, %edi
     movl    (%edi), %edi
     RET
+
 
 print_string:
     pushl   %edi
@@ -120,14 +132,14 @@ consulta:
 _loop_consulta:
     cmpl    $NULL, %edi
     je      _end_consulta
-    addl    $260, %edi              # Move até o campo de metragem e coloca o valor no %eax
+    addl    $264, %edi              # Move até o campo de metragem e coloca o valor no %eax
     movl    (%edi), %eax
     cmpl    metragem_min, %eax
     jl      _next_consulta
     cmpl    metragem_max, %eax
     jg      _next_consulta
 _printa_consulta:                   # Registro dentro do intervalo, volta o ponteiro para o inicio e printa o registro
-    subl    $260, %edi
+    subl    $264, %edi
     call    printReg
     jmp    _loop_consulta
 _next_consulta:                     # Registro fora do intervalo, move para o próximo registro

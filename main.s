@@ -21,13 +21,14 @@
     txtPedeSala:    		.asciz	"Digite se o imovel possui sala(sim/nao): "        #4
     txtPedeGaragem:    		.asciz	"Digite se o imovel possui garagem(sim/nao): "    #4
     txtPedeMetragem:    	.asciz	"Digite a metragem total do imovel: "        #4 (int)
-    txtPedeAluguel:    		.asciz	"Digite o valor do aluguel do imovel: "        #4 (int) ?
+    txtPedeAluguel:    		.asciz	"Digite o valor do aluguel do imovel: "        #4 (float) 
 
     txtConsultaReg:         .asciz  "\n*** Consulta de Registros por metragem ***\n"
     txtConsultaMin:    		.asciz	"Digite o valor minimo do intervalo: "
     txtConsultaMax:    		.asciz	"Digite o valor maximo do intervalo: "
 
     txtMostraReg:    		.asciz	"\n*** Registro Lido ***\n"
+    txtMostraID:    		.asciz	"\nID: %d"
     txtMostraNome:    		.asciz	"\nNome: %s"
     txtMostraPhone: 		.asciz	"\nCelular: %s"
     txtMostraCPF:    		.asciz	"\nCPF: %s"
@@ -40,7 +41,7 @@
     txtMostraSala:    		.asciz	"\nSala: %s"
     txtMostraGaragem:    	.asciz	"\nGaragem: %s"
     txtMostraMetragem:    	.asciz	"\nMetragem Total: %d"
-    txtMostraAluguel:    	.asciz  "\nAluguel: %d\n"
+    txtMostraAluguel:    	.asciz  "\nAluguel: %.2lf\n"
 
     txtRemoveReg:           .asciz  "\n*** Remoção de Registro ***\n"
     txtRemoveEndereco:      .asciz  "\n*** Digite o Endereco para Remocao : "
@@ -51,10 +52,12 @@
     tipoNum:     		    .asciz	"%d"
     tipoChar:    		    .asciz	"%c"
     tipoStr:    		    .asciz	" %s"
+    tipoFloat:			    .asciz  "%f"
     pulaLinha:     		    .asciz	"\n"
 
-    tamReg:      		    .int	272    #268 + 4 bytes de enderço do próximo
+    tamReg:      		    .int	276    #268 + 4 bytes de enderço do próximo
     reg:        		    .space	4
+    proximoID:              .int    0
     lista:        		    .space	4
     NULL:        		    .int	0
 

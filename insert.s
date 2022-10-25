@@ -5,7 +5,7 @@ insertReg:
     cmpl    $NULL, lista
     je      _first_reg
 _volta_insert:
-    addl    $236, %edi          
+    addl    $240, %edi          
     movl    (%edi), %eax        #Pegar valor de quarto simples e colocar em eax
     addl    $4, %edi
     addl    (%edi), %eax        #eax contém o valor total dos quartos
@@ -14,7 +14,7 @@ _volta_insert:
     addl    $28, %edi
     mov     %edi, %esi
     movl    (%edi), %edi
-    subl    $268, %esi
+    subl    $272, %esi
     cmpl    $NULL, %edi
     je      _insert_end
     jmp     _volta_insert
@@ -22,22 +22,22 @@ _end_search:                    #Encontrou uma posição edi diferente de NULL
     cmpl    $NULL, %esi
     je      _insert_start
 _insert_middle:
-    addl    $268, %ebx
-    addl    $268, %esi
+    addl    $272, %ebx
+    addl    $272, %esi
     movl    (%esi), %eax
     movl    %eax, (%ebx)
     movl    reg, %eax
     movl    %eax, (%esi)
     RET
 _insert_start:                  #Inserção no Inicio
-    addl    $268, %ebx
+    addl    $272, %ebx
     movl    lista, %eax
     movl    %eax, (%ebx)
-    subl    $268, %ebx
+    subl    $272, %ebx
     movl    %ebx, lista
     RET
 _insert_end:                    #Inserção no Fim
-    addl    $268, %esi
+    addl    $272, %esi
     movl    %ebx, (%esi)
     RET
 _first_reg:                     #Primeira Inserção

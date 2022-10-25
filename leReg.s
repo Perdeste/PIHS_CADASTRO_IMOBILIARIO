@@ -4,6 +4,14 @@ leReg:
     pushl   tamReg
     call    malloc
     movl    %eax, reg
+    movl    reg, %edi  
+
+#Insere campo ID no registro
+    movl    proximoID, %eax
+    movl    %eax, (%edi)
+    inc     %eax
+    movl    %eax, proximoID
+    addl    $4, %edi
 
 #Leitura campo Nome
     pushl   $txtPedeNome
@@ -11,8 +19,7 @@ leReg:
     addl    $12, %esp         
     
     pushl   stdin       
-    pushl   $64         
-    movl    reg, %edi    
+    pushl   $64           
     pushl   %edi        
     call    fgets        
     
@@ -95,14 +102,22 @@ leReg:
     addl    $4, %edi     
     
 #Leitura campo valor aluguel
-    movl    $txtPedeAluguel, %ebx
-    call    read_int
+    pushl    $txtPedeAluguel
+    call    printf
+    addl    $4, %esp
+
+    pushl    %edi
+    pushl    $tipoFloat
+    call    scanf
+    
+    addl    $8, %esp
+    
     addl    $4, %edi
     movl    $NULL, %eax
     movl    %eax, (%edi)   
     call    insertReg       
             
-    RET        
+    RET            
 
 #Função para ler um campo do tipo int
 read_int:
