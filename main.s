@@ -65,7 +65,7 @@
     metragem_min:           .int    0
     metragem_max:           .int    0
 
-    endereco_remover:       .space  128
+    id_remover:             .int    0
 
     opcao:                  .int    0
     lixo:                   .int    0
