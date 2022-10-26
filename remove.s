@@ -22,16 +22,18 @@ removeReg:
 _loop_remove:
     cmpl    $NULL, %edi             #
     je      _removeFalha            #
+    movl    lista, %ebx
+    movl    id_remover, %ecx
+    cmpl    %ebx, %ecx
+    je      _removePrimeiro
     movl    (%edi), %eax            #
     cmpl    id_remover, %eax        # compara para ver se é o ID que se deseja remover
     jne     _next_remove            # caso não seja ele passa pro próximo registro
 
 _remove_reg:
-    movl    %edi, %esi
-    subl    $4, %edi
-    addl    $272, %esi
-    movl    (%esi), %ebx
-    movl    %ebx, (%edi)
+    addl    $272, %edi              #
+    movl    (%edi), %ebx            # coloca 
+    movl    %ebx, (%esi)            #
     pushl   $txtRemovidoReg         # chama o texto de remocao com sucesso
     call    printf                  # chama o print
     addl    $4, %esp                # limpa 1 push
@@ -41,6 +43,7 @@ _remove_reg:
 # Função para pular para o próx id
 _next_remove:
     addl    $272, %edi              # pula para o inicio do proximo registro
+    movl    %edi, %esi
     movl    (%edi), %edi            # muda o ponteiro para o proximo registro 
     jmp     _loop_remove            # volta para conferir se é o id pedido
 
@@ -60,6 +63,15 @@ _removeVazio:
     addl    $4, %esp                # limpa 1 push
     jmp     _end_remove
 
+
+_removePrimeiro:
+    addl    $272, %edi              #
+    movl    (%edi), %ebx            # coloca 
+    movl    %ebx, $lista             #
+    pushl   $txtRemovidoReg         # chama o texto de remocao com sucesso
+    call    printf                  # chama o print
+    addl    $4, %esp                # limpa 1 push
+    jmp     _end_remove
 
 # Função que finaliza a opção de remover da lista
 _end_remove:
