@@ -23,6 +23,7 @@ _loop_remove:
     cmpl    $NULL, %edi             #
     je      _removeFalha            #
     movl    lista, %ebx
+    movl    (%ebx), %ebx
     movl    id_remover, %ecx
     cmpl    %ebx, %ecx
     je      _removePrimeiro
@@ -65,9 +66,9 @@ _removeVazio:
 
 
 _removePrimeiro:
-    addl    $272, %edi              #
-    movl    (%edi), %ebx            # coloca 
-    movl    %ebx, $lista             #
+    addl    $272, %edi              # coloca o EDI na casa do ponteiro
+    movl    (%edi), %edi
+    movl    %edi, lista             #
     pushl   $txtRemovidoReg         # chama o texto de remocao com sucesso
     call    printf                  # chama o print
     addl    $4, %esp                # limpa 1 push
