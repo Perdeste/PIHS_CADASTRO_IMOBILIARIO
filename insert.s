@@ -1,14 +1,16 @@
+# Função para ler um registro e armazenar na variavel reg
+# Os nomes, posterior e anterior, são relacionados ao registro atual, ou seja, qual será o registro posterior e anterior em relação ao registro atual inserido
 insertReg:
-    movl    lista, %edi         #posterior
-    movl    $NULL, %esi         #anterior
-    movl    reg, %ebx
-    cmpl    $NULL, lista
+    movl    lista, %edi         # ponteiro para o registro posterior
+    movl    $NULL, %esi         # ponteiro para o registro anterior
+    movl    reg, %ebx           # ponteiro para o registro atual a ser inserido
+    cmpl    $NULL, lista        # Checar se a lista é vazia
     je      _first_reg
 _volta_insert:
     addl    $240, %edi          
-    movl    (%edi), %eax        #Pegar valor de quarto simples e colocar em eax
+    movl    (%edi), %eax        # Pega o valor de quarto simples e colocar em %eax
     addl    $4, %edi
-    addl    (%edi), %eax        #eax contém o valor total dos quartos
+    addl    (%edi), %eax        # eax contém o valor total dos quartos
     cmpl    %eax, reg_quartos   #Comparação para determinar a posição do registro atual
     jle     _end_search
     addl    $28, %edi

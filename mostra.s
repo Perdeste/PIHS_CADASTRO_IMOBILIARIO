@@ -1,10 +1,12 @@
+# Função para printar todos os campos de um registro
+# O registrador %ebx esta sendo utilizado para guardar as variaveis que contém o texto
 printReg:
     pushl   $txtMostraReg
     call    printf
     addl    $4, %esp
 
     # Mostra campo ID
-    movl   $txtMostraID, %ebx
+    movl    $txtMostraID, %ebx
     call    print_int
 
     # Mostra campo Nome
@@ -65,11 +67,11 @@ printReg:
     call    print_int
 
     # Mostra campo Aluguel
-    pushl    %edi
+    pushl   %edi
     flds    (%edi)
     subl    $8, %esp
     fstl    (%esp)
-    pushl    $txtMostraAluguel
+    pushl   $txtMostraAluguel
     call    printf
     addl    $12, %esp
     popl    %edi
@@ -77,7 +79,7 @@ printReg:
     movl    (%edi), %edi
     RET
 
-
+# Função básica para toda vez que deseja-se printar um campo do tipo string sem espaço
 print_string:
     pushl   %edi
     pushl   %ebx
@@ -87,6 +89,7 @@ print_string:
     popl    %edi
     RET
 
+# Função básica para toda vez que deseja-se printar um campo do tipo inteiro
 print_int:
     pushl   %edi
     movl    (%edi), %eax
@@ -134,16 +137,16 @@ _loop_consulta:
     je      _end_consulta
     addl    $264, %edi              # Move até o campo de metragem e coloca o valor no %eax
     movl    (%edi), %eax
-    cmpl    metragem_min, %eax
+    cmpl    metragem_min, %eax      # Se o %eax é menor do que o valor mínimo, então pula para o próximo registro
     jl      _next_consulta
-    cmpl    metragem_max, %eax
+    cmpl    metragem_max, %eax      # Se o %eax é maior do que o valor máximo, então pula para o próximo registro
     jg      _next_consulta
 _printa_consulta:                   # Registro dentro do intervalo, volta o ponteiro para o inicio e printa o registro
     subl    $264, %edi
     call    printReg
     jmp    _loop_consulta
 _next_consulta:                     # Registro fora do intervalo, move para o próximo registro
-    addl    $8, %edi
+    addl    $8, %edi                # Temos que mover 8 bytes no intervalo (264 + 8) para posicionar no campo do endereço do próximo
     movl    (%edi), %edi
     jmp    _loop_consulta
 _end_consulta:

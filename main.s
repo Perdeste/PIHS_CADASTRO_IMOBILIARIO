@@ -109,22 +109,22 @@ _fim:
     call    exit
 _cadastrar_imovel:
     call    leReg
-    jmp _menu
+    jmp     _menu
 _relatorio_imovel:
     call    print_lista
-    jmp _menu
+    jmp     _menu
 _consulta_imovel:
     call    consulta
-    jmp _menu
+    jmp     _menu
 _remover_imovel:
     call    removeReg
-    jmp _menu
+    jmp     _menu
 _salvar_dados:
     # TODO: Colocar o salvamento dos dados
-    jmp _menu
+    jmp     _menu
 _carregar_dados:
     # TODO: Colocar o carregamento dos dados
-    jmp _menu
+    jmp     _menu
 
 
 
