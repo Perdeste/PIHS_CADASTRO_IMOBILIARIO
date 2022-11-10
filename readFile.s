@@ -1,10 +1,12 @@
+# Função de controle que será chamada para ler o arquivo
 readData:
-    call    clean_lista #função 
+    call    clean_lista         # Função 
     call    openReadFile
     call    readReg
     call    closeFile
     RET
 
+# Função para abrir o arquivo em modo leitura
 openReadFile:
     movl    SYS_OPEN, %eax
     movl    $nomeArq, %ebx
@@ -13,6 +15,7 @@ openReadFile:
     movl    %eax, descritor 
     RET
 
+# Função para ler cada registro e inserir na lista individualmente
 readReg:
     movl	$NULL, lista
     movl    $0, proximoID
@@ -44,6 +47,7 @@ _end_readReg:
     movl    %eax, proximoID
     RET
 
+# Limpa a lista %edi utilizando a função free
 clean_lista:
     movl    lista, %edi
     cmpl    $NULL, %edi
@@ -71,6 +75,7 @@ _end_clean_lista:
     movl    $NULL, lista
     RET
 
+# Função para manter o valor do proximoID
 trata_ID:
     movl    (%edi), %eax
     cmpl    proximoID, %eax
