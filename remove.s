@@ -1,3 +1,4 @@
+#TODO: na descrição do trabalho ele diz para remover o espaço de memória com a função free
 removeReg:
     pushl   $txtRemoveReg           # Texto de inicialização do remove
     call    printf                  # chama para printar ele na tela

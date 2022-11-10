@@ -65,15 +65,11 @@ leReg:
 #Leitura campo Número de quarto simples
     movl    $txtPedeQuartoSimples, %ebx         
     call    read_int                
-    movl    (%edi), %eax
-    movl    %eax, reg_quartos
     addl    $4, %edi               
 
 #Leitura campo Número de quarto suite
     movl    $txtPedeQuartoSuite, %ebx         
-    call    read_int 
-    movl    (%edi), %eax
-    addl    %eax, reg_quartos               
+    call    read_int           
     addl    $4, %edi                        
 
 #Leitura campo se tem banheiro social

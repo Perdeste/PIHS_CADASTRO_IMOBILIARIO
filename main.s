@@ -2,6 +2,8 @@
 .include "mostra.s"
 .include "leReg.s"
 .include "remove.s"
+.include "writeFile.s"
+.include "readFile.s"
 
 .section .data
     txtAbertura:            .asciz	"\n*** Cadastros Imobiliario em Assembly ***\n"
@@ -49,13 +51,19 @@
     txtRemoveFalha:         .asciz  "\n*** ID Invalido... ***\n"
     txtRemoveVazio:         .asciz  "\n*** Lista Vazia... ***\n"
 
+    txtCarregaSucesso:      .asciz  "\n*** Arquivo Carregado com Sucesso ***\n" 
+    txtCarregaFalha:        .asciz  "\n*** Falha no Carregamento do Arquivo ***\n" 
+    txtSalvaSucesso:        .asciz  "\n*** Arquivo Salvo com Sucesso ***\n" 
+
+    nomeArq:                .asciz  "registros.txt"
+
     tipoNum:     		    .asciz	"%d"
     tipoChar:    		    .asciz	"%c"
     tipoStr:    		    .asciz	" %s"
     tipoFloat:			    .asciz  "%f"
     pulaLinha:     		    .asciz	"\n"
 
-    tamReg:      		    .int	276    # 268 + 4 bytes de enderço do próximo
+    tamReg:      		    .int	276    # 272 + 4 bytes de enderço do próximo
     reg:        		    .space	4
     proximoID:              .int    0
     lista:        		    .space	4
@@ -69,6 +77,23 @@
 
     opcao:                  .int    0
     lixo:                   .int    0
+
+    descritor:              .int    0
+
+    SYS_READ:               .int 3
+    SYS_WRITE:              .int 4
+    SYS_OPEN:               .int 5
+    SYS_CLOSE:              .int 6
+
+    O_RDONLY:               .int 0x0000 
+    O_WRONLY:               .int 0x0001 
+    O_CREAT:                .int 0x0040 
+    O_APPEND:               .int 0x0400 
+    O_TRUNC:                .int 0x0200 
+
+    S_IRUSR:                .int 0x0100 
+    S_IWUSR:                .int 0x0080 
+
 
 .section .text
 .globl _start
@@ -121,9 +146,11 @@ _remover_imovel:
     jmp     _menu
 _salvar_dados:
     # TODO: Colocar o salvamento dos dados
+    call    saveData
     jmp     _menu
 _carregar_dados:
     # TODO: Colocar o carregamento dos dados
+    call    readData
     jmp     _menu
 
 

@@ -4,6 +4,7 @@ insertReg:
     movl    lista, %edi         # ponteiro para o registro posterior
     movl    $NULL, %esi         # ponteiro para o registro anterior
     movl    reg, %ebx           # ponteiro para o registro atual a ser inserido
+    call    calcula_quartos
     cmpl    $NULL, lista        # Checar se a lista é vazia
     je      _first_reg
 _volta_insert:
@@ -11,7 +12,7 @@ _volta_insert:
     movl    (%edi), %eax        # Pega o valor de quarto simples e colocar em %eax
     addl    $4, %edi
     addl    (%edi), %eax        # eax contém o valor total dos quartos
-    cmpl    %eax, reg_quartos   #Comparação para determinar a posição do registro atual
+    cmpl    %eax, reg_quartos   # Comparação para determinar a posição do registro atual
     jle     _end_search
     addl    $28, %edi
     mov     %edi, %esi
@@ -44,4 +45,13 @@ _insert_end:                    #Inserção no Fim
     RET
 _first_reg:                     #Primeira Inserção
     movl    %ebx, lista
+    RET
+
+calcula_quartos:
+    addl    $240, %ebx
+    movl    (%ebx), %eax        # Pega o valor de quarto simples e colocar em %eax
+    addl    $4, %ebx
+    addl    (%ebx), %eax        # eax contém o valor total dos quartos
+    movl    %eax, reg_quartos
+    subl    $244, %ebx
     RET
