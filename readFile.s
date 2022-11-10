@@ -8,9 +8,12 @@ readData:
 
 # Função para abrir o arquivo em modo leitura
 openReadFile:
-    movl    SYS_OPEN, %eax
-    movl    $nomeArq, %ebx
-    movl    O_RDONLY, %ecx
+    movl    SYS_OPEN, %eax      # Abre o arquivo
+    movl    $nomeArq, %ebx      # Nome do arquivo é definido como constante (registro.txt)
+    movl    O_RDONLY, %ecx      # Define a opção de apenas leitura
+    orl     O_CREAT, %ecx       # Cria um arquivo se não existir, para não ter problema na leitura caso o arquivo não exista
+    movl    S_IRUSR, %edx       # Define permissão de leitura para o usuário
+    orl     S_IWUSR, %edx       # Define permissão de escrita para o usuário
     int     $0x80
     movl    %eax, descritor 
     RET
@@ -20,10 +23,6 @@ readReg:
     movl	$NULL, lista
     movl    $0, proximoID
 _loop_readReg:
-    pushl   tamReg
-    call    malloc
-    movl    %eax, reg
-    addl    $4, %esp
     movl    SYS_READ, %eax
     movl    descritor, %ebx
     movl    reg, %ecx
@@ -31,6 +30,10 @@ _loop_readReg:
     int     $0x80
     cmpl    $0, %eax
     je      _end_readReg
+    pushl   tamReg
+    call    malloc
+    movl    %eax, reg
+    addl    $4, %esp
     movl    reg, %edi
     call    trata_ID
     addl    $272, %edi
