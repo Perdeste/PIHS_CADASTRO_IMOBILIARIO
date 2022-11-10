@@ -27,7 +27,7 @@ _loop_saveReg:                  # Para cada registro faça...
     je      _end_saveReg        #
     movl    SYS_WRITE, %eax     # %eax = serviço da chamda do sistema
     movl    descritor, %ebx     # %ebx = indicador abstrato do arquivo
-    movl    %edi, %ecx          # %ecx = endereço de memória a ser que contém o conteúdo a ser escrito
+    movl    %edi, %ecx          # %ecx = endereço de memória a que contém o conteúdo a ser escrito
     movl    $272, %edx          # %edx = quantidade de bytes a serem escritos no arquivo
     int     $0x80               
     addl    $272, %edi          # Move o ponteiro para o final do registro 
