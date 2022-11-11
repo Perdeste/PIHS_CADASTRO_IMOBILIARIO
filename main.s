@@ -1,3 +1,7 @@
+# Integrantes:
+#   RA112649 - Thiago Yuji Yoshimura Yamamoto
+#   RA102573 - Gabriel Henrique Costanzi
+#   RA112675 - Felipe Roveroni de Lima
 # Inclusão dos arquivos que contém as funcionalidades do programa (para maior organização)
 .include "insert.s"
 .include "mostra.s"
@@ -10,7 +14,7 @@
 .section .data
     txtAbertura:            .asciz	"\n*** Cadastros Imobiliario em Assembly ***\n"
     txtMenu:                .asciz  "\n*** Menu ***\n(1) Cadastrar imóvel\n(2) Relatório \n(3) Consulta por metragem \n(4) Remover imóvel \n(5) Salvar Dados \n(6) Carregar Dados \n(0) Sair \n\nDigite a opcao desejada: "
-    txtPerguntaSalvar:       .asciz  "\nVocê esta saindo do programa\nGostaria de salvar as alterações da lista? <1>Sim <2>Nao: "
+    txtPerguntaSalvar:      .asciz  "\nVocê esta saindo do programa\nGostaria de salvar as alterações da lista? <1>Sim <2>Nao: "
     
     # Textos para pedir os campos (leReg.s)
     txtPedeReg:             .asciz  "\n*** Preenchimento de Registros ***\n"  
@@ -163,4 +167,3 @@ _salvar_dados:
 _carregar_dados:
     call    readData
     jmp     _menu
-
