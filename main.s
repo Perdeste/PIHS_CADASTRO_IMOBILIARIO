@@ -5,10 +5,12 @@
 .include "remove.s"
 .include "writeFile.s"
 .include "readFile.s"
+.include "checkBeforeLeave.s"
 
 .section .data
     txtAbertura:            .asciz	"\n*** Cadastros Imobiliario em Assembly ***\n"
     txtMenu:                .asciz  "\n*** Menu ***\n(1) Cadastrar imóvel\n(2) Relatório \n(3) Consulta por metragem \n(4) Remover imóvel \n(5) Salvar Dados \n(6) Carregar Dados \n(0) Sair \n\nDigite a opcao desejada: "
+    txtPerguntaSalvar:       .asciz  "\nVocê esta saindo do programa\nGostaria de salvar as alterações da lista? <1>Sim <2>Nao: "
     
     # Textos para pedir os campos (leReg.s)
     txtPedeReg:             .asciz  "\n*** Preenchimento de Registros ***\n"  
@@ -57,7 +59,7 @@
 
     # Textos para salvar e carregar arquivo (readFile.s e writeFile.s)
     txtCarregaSucesso:      .asciz  "\n*** Arquivo Carregado com Sucesso ***\n" 
-    txtCarregaFalha:        .asciz  "\n*** Falha no Carregamento do Arquivo ***\n" 
+    txtArquivoVazio:        .asciz  "\n*** Arquivo Carregado esta Vazio ***\n" 
     txtSalvaSucesso:        .asciz  "\n*** Arquivo Salvo com Sucesso ***\n" 
 
     nomeArq:                .asciz  "registros.txt"
@@ -140,7 +142,8 @@ _menu:
     je      _carregar_dados
     jmp     _menu
 _fim:
-    pushl    $0
+    call    check_save
+    pushl   $0
     call    exit
 _cadastrar_imovel:
     call    leReg
@@ -155,17 +158,9 @@ _remover_imovel:
     call    removeReg
     jmp     _menu
 _salvar_dados:
-    # TODO: Colocar o salvamento dos dados
     call    saveData
     jmp     _menu
 _carregar_dados:
-    # TODO: Colocar o carregamento dos dados
     call    readData
     jmp     _menu
-
-
-
-
-
-
 
