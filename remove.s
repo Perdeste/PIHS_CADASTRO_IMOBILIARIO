@@ -31,6 +31,7 @@ _loop_remove:
     movl    (%edi), %eax            #
     cmpl    id_remover, %eax        # compara para ver se é o ID que se deseja remover
     jne     _next_remove            # caso não seja ele passa pro próximo registro
+    movl    %edi, reg
 
 _remove_reg:
     addl    $272, %edi              #
@@ -38,7 +39,9 @@ _remove_reg:
     movl    %ebx, (%esi)            #
     pushl   $txtRemovidoReg         # chama o texto de remocao com sucesso
     call    printf                  # chama o print
-    addl    $4, %esp                # limpa 1 push
+    pushl   reg                     # da um push no reg para fazer o free
+    call    free                    # função free
+    addl    $8, %esp                # limpa 2 push
     jmp     _end_remove
 
 
